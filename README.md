@@ -1,6 +1,6 @@
 # Static Site Generator
 
-This is a simple static site generator that uses Express, markdown, and Handlebars to generate a static website.
+This is a simple static site generator that uses [Express](https://expressjs.com), [markdown](https://github.com/markdown-it/markdown-it), and [Handlebars](https://handlebarsjs.com) to generate a static website.
 
 ## Installation
 
