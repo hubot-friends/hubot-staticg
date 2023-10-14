@@ -44,3 +44,53 @@ This is an example markdown file that utilizes the layouts/index.html layout fil
 </html>
 ```
 
+# Run it
+
+```sh
+npx @hubot-friends/sfab --folder ./docs --destination ./_site --verbose
+```
+
+# If you install it globally (`npm i @hubot-friends/sfab -g`)
+
+```sh
+# builds the site and starts a web server (Express) using a virtual path, e.g. /hubot/. If there's no virtual path (just at the roo), then just `--serve` with no additional value.
+sfab --folder ./docs --destination ./_site --verbose --serve /hubot/
+```
+
+# Restart when files change (requires Node.js version 20.6.x --watch facility)
+
+```sh
+sfab --folder ./docs --destination ./_site --verbose --serve /hubot/ --watch-path ./docs
+```
+
+# Hook into the build process
+
+```sh
+npx @hubot-friends/sfab --folder ./docs --destination ./_site --verbose --serve /hubot/ --watch-path ./docs --scripts ./sfab-hooks
+```
+
+## Example Hook
+
+```javascript
+export default () => {
+    return {
+        model(file, model) {
+            // object returned gets Object.assigned to the model passed to the handlebars compiler for use in the templates.
+            return {
+                base: {
+                    href: '/hubot/'
+                }
+            }
+        },
+        async transformed(transformedFilePath) {
+            // do something during transformation
+        },
+        async copied(filePath) {
+            // file wsa copied to this filePath.
+        },
+        async partial(partialName, partial, handebars) {
+            // partial was registered. passing handlebars if you want to register more.
+        }
+    }
+}
+```
