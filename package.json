@@ -47,5 +47,8 @@
       "next"
     ],
     "dryRun": false
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
