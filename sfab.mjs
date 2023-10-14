@@ -147,7 +147,7 @@ const registerPartials = async (folder, handlebars, hooks) => {
             handlebars.registerPartial(partialName, partial)
             for await (let hook of hooks) {
                 if (!hook?.partial) continue
-                await hook.partial(partialName, partial)
+                await hook.partial(partialName, partial, handlebars)
             }
         }
     }
