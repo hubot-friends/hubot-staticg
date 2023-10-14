@@ -40,5 +40,12 @@
   "scripts": {
     "test": "node --test",
     "start": "node bin/sfab"
+  },
+  "release": {
+    "branches": [
+      "main",
+      "next"
+    ],
+    "dryRun": false
   }
 }
