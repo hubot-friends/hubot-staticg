@@ -131,12 +131,12 @@ handlebars.registerHelper('current', (a, b)=>{
     return a.endsWith(b) ? ' current' : ''
 })
 
-const registerPartials = async (folder, handlebars) => {
+const registerPartials = async (folder, handlebars, hooks) => {
     const files = await File.readdir(folder, { withFileTypes: true })
     for await (let file of files) {
         const filePath = `${folder}/${file.name}`
         if (file.isDirectory()) {
-            await registerPartials(filePath, handlebars)
+            await registerPartials(filePath, handlebars, hooks)
         } else {
             if(!(filePath.toLowerCase().includes('layouts') || filePath.toLowerCase().includes('partials'))) continue
             if (!filePath.endsWith('.html')) continue
@@ -145,6 +145,10 @@ const registerPartials = async (folder, handlebars) => {
             const partial = await File.readFile(filePath, 'utf-8')
             log(folder, partialName)
             handlebars.registerPartial(partialName, partial)
+            for await (let hook of hooks) {
+                if (!hook?.partial) continue
+                await hook.partial(partialName, partial)
+            }
         }
     }
 }
@@ -306,8 +310,13 @@ stream.createGroup('handlers:copy', 'events:args:copy', async messages => {
     }
 })
 stream.createGroup('handlers:serve', 'events:args:serve', async messages => {
+    console.log(messages, args)
     app.listen(args.port ?? 3001, ()=>{
         console.log(`listening on http://localhost:${args.port ?? 3001}`)
+        if(args.serve) {
+            app.use(args.serve, express.static(args.destination ?? DESTINATION))
+        }
+
     })
     stream.deleteGroup('handlers:serve')
 })

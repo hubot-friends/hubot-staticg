@@ -4,7 +4,7 @@
   "bin": {
     "sfab": "bin/sfab"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Static site generator. From markdown to html with metadata and handlebars.",
   "keywords": [
     "static",
