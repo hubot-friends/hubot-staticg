@@ -1,0 +1,44 @@
+{
+  "name": "sfab",
+  "main": "./sfab.mjs",
+  "bin": {
+    "sfab": "./bin/sfab"
+  },
+  "version": "1.0.0",
+  "description": "Static site generator. From markdown to html with metadata and handlebars.",
+  "keywords": [
+    "static",
+    "site",
+    "generator",
+    "markdown",
+    "handlebars",
+    "html",
+    "site",
+    "fabricator"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hubot-friends/sfab.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "Joey Guerra",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7",
+    "markdown-it": "^13.0.1",
+    "markdown-it-meta": "^0.0.1"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node bin/sfab"
+  }
+}
