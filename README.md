@@ -69,6 +69,12 @@ sfab --folder ./docs --destination ./_site --verbose --serve /hubot/ --watch-pat
 npx @hubot-friends/sfab --folder ./docs --destination ./_site --verbose --serve /hubot/ --watch-path ./docs --scripts ./sfab-hooks
 ```
 
+# Copy another folder to destination
+
+```sh
+sfab --folder ./docs --destination ./_site --verbose --serve /hubot/ --watch-path ./docs --copy ./resources
+```
+
 ## Example Hook
 
 ```javascript
@@ -82,15 +88,19 @@ export default () => {
                 }
             }
         },
-        async transformed(transformedFilePath) {
+        async transformed(viewKey, transformedFilePath, model, html, viewModel) { // model is the object passed to the temlating engines, viewModel is the object that comes from markdown meta data or html item props.
             // do something during transformation
         },
         async copied(filePath) {
-            // file wsa copied to this filePath.
+            // file was copied to this filePath.
         },
         async partial(partialName, partial, handebars) {
             // partial was registered. passing handlebars if you want to register more.
         }
     }
 }
+```
+
+```sh
+npm start -- --folder ../../hubotio/hubot/docs --destination ../../hubotio/hubot/_site --verbose --serve /hubot/ --watch-path ../../hubotio/hubot/docs --scripts ../../hubotio/hubot/sfab-hooks
 ```
